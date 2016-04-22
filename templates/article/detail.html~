@@ -1,0 +1,60 @@
+{% extends 'article/base.html' %}
+{% load staticfiles %}
+{% load article_filter %}
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>{% block title %}Navigatio Home{% endblock %}</title>
+    <!-- block meta_header -->
+    <!-- block header_js -->
+    <!-- block header_css -->
+  </head>
+  <body>
+    <!-- Wrapper -->
+    <div id="wrapper">
+      <!-- Header -->
+      <!-- block header -->
+      <!-- Menu -->
+      <!-- block menu -->
+      
+      <!-- Main -->
+      <div id="main">
+        {% block content %}
+      
+        <!-- Post -->
+        <article class="post">
+          <header>
+            <div class="title">
+              <h2>{{article.title}}</h2>
+              <p>{{article.category}}</p>
+            </div>
+            <div class="meta">
+              <time class="published" datetime="{{article.pub_date}}">{{article.pub_date|date:"l F d, Y"}}</time>
+              <a href="#" class="author"><span class="name">{{article.author.author_name}}</span><img src="{% static '' %}{{article.author.author_avatar.name|fetch_img_url}}" alt="" /></a>
+            </div>
+          </header>
+          <img class="image featured" src="{% static '' %}{{article.image.main_img.name|fetch_img_url}}" alt="" />
+          <p>{{article.description}}</p>
+        </article>
+        {% endblock %}
+
+        <!-- block next_content -->
+      </div>
+
+      <!-- Sidebar -->
+      <!-- block sidebar -->
+        <!-- Intro -->
+        <!-- block intro -->
+        <!-- Mini Posts -->
+        <!-- block mini_posts -->
+        <!-- block posts_list -->
+        <!-- About -->
+        <!-- block about -->
+        <!-- Footer -->
+        <!-- block footer -->
+      <!-- end block sidebar -->
+    </div>
+    <!-- Scripts -->
+    <!-- block footer_js -->
+  </body>
+</html>
