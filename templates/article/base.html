@@ -21,6 +21,24 @@
     <![endif]-->
     {% endblock %}
     {% block custom_css %}
+    <style>
+     .next_h2 {
+      padding-top:10px;
+      padding-bottom:8px; 
+      border-top:1px solid rgba(160, 160, 160, 0.3); 
+      border-bottom:1px solid rgba(160, 160, 160, 0.3);
+     }
+
+     .next_img{
+      width:180px; 
+      height:180px;
+     }
+
+     .next_span{
+      color:#aaaaaa;
+      float:right;
+     }
+    </style>
     {% endblock %}
   </head>
   <body>
@@ -101,10 +119,10 @@
 
       <!--Next Content -->
       {% block next_content %}
-        <h2 style="padding-top:10px;padding-bottom:8px; border-top:1px solid rgba(160, 160, 160, 0.3); border-bottom:1px solid rgba(160, 160, 160, 0.3);">What to read next<a href="#"><span style="color:#aaaaaa !important; float:right"><></a></span></h2>
+        <h2 class="next_h2">What to read next<a href="#"><span class="next_span"><></a></span></h2>
         <ul class="actions pagination">
           {% for next in next_article %}
-            <li><a title="{{next.title}}" href="/detail/{{next.id}}" class="image"><img style="width:180px; height:180px" src="{% static '' %}{{next.image.main_img.name|fetch_img_url}}" title="{{next.title}}" alt="{{next.title}}" />{{next.title|truncatewords:5}}</a></li>
+            <li><a title="{{next.title}}" href="/detail/{{next.id}}" class="image"><img class="next_img" src="{% static '' %}{{next.image.main_img.name|fetch_img_url}}" title="{{next.title}}" alt="{{next.title}}" />{{next.title|truncatewords:5}}</a></li>
           {% endfor %}
         </ul>
       {% endblock %}
