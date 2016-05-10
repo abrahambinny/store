@@ -19,5 +19,6 @@ from . import views
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^detail/(?P<article_id>[0-9]+)/$', views.detail, name='detail'),
+    url(r'^detail/json/(?P<article_id>[0-9]+)/$', views.detail, name='detail_json'),
 ]
 

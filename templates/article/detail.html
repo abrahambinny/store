@@ -4,7 +4,7 @@
 <!DOCTYPE HTML>
 <html>
   <head>
-    <title>{% block title %}Navigatio Home{% endblock %}</title>
+    <title>{% block title %}Navigatio Detail{% endblock %}</title>
     <!-- block meta_header -->
     <!-- block header_js -->
     <!-- block header_css -->
@@ -22,7 +22,7 @@
         {% block content %}
       
         <!-- Post -->
-        <article class="post">
+        <article id="vue_view" class="post">
           <header>
             <div class="title">
               <h2>{{article.title}}</h2>
@@ -56,5 +56,40 @@
     </div>
     <!-- Scripts -->
     <!-- block footer_js -->
+
+    {% block custom_js %}
+      <script type="javascript/text">
+
+        var vueRock = new Vue({
+          el: '#vue_view',
+          data: {
+            totalItems: 0
+          },
+
+          ready: function() {
+            this.fetchData();
+            alert('silly');
+          },
+
+          methods: {
+            fetchData: function(){
+              $.ajax({
+                url: 'http://example.com/totalitems/get',
+                type: 'get',
+                dataType: 'json',
+                async: false,
+                success: function(data) {
+                  var self = this;
+                  // This way
+                  //self.totalItems = data;
+                  // Or this way
+                  //vueRock.$set('totalItems', data);
+                });
+              }
+            }
+          }
+        });
+      </script>
+    {% endblock %}
   </body>
 </html>
