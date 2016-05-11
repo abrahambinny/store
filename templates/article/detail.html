@@ -22,20 +22,20 @@
         {% block content %}
       
         <!-- Post -->
+        {% verbatim %}
         <article id="vue_view" class="post">
           <header>
             <div class="title">
               <h2>{{article.title}}</h2>
-              <p>{{article.category}}</p>
+              <p>{{category}}</p>
             </div>
             <div class="meta">
-              <time class="published" datetime="{{article.pub_date}}">{{article.pub_date|date:"l F d, Y"}}</time>
-              <a href="#" class="author"><span class="name">{{article.author.author_name}}</span><img src="{% static '' %}{{article.author.author_avatar.name|fetch_img_url}}" alt="" /></a>
+              <time class="published" datetime="{{pub_date}}">{{pub_date}}</time>
             </div>
           </header>
-          <img class="image featured" src="{% static '' %}{{article.image.main_img.name|fetch_img_url}}" alt="" />
-          <p>{{article.description}}</p>
+          <p>{{description}}</p>
         </article>
+        {% endverbatim %}
         {% endblock %}
 
         <!-- block next_content -->
@@ -58,34 +58,34 @@
     <!-- block footer_js -->
 
     {% block custom_js %}
-      <script type="javascript/text">
+      <script type="text/javascript">
 
         var vueRock = new Vue({
           el: '#vue_view',
           data: {
-            totalItems: 0
+            article:[],
           },
 
           ready: function() {
             this.fetchData();
-            alert('silly');
           },
 
           methods: {
             fetchData: function(){
               $.ajax({
-                url: 'http://example.com/totalitems/get',
+                url: '/detail/json/{{article_id}}/',
                 type: 'get',
                 dataType: 'json',
                 async: false,
                 success: function(data) {
-                  var self = this;
+                  //var self = this;
                   // This way
-                  //self.totalItems = data;
+                  self.article = data;
+                  //console.log(self.article);
                   // Or this way
                   //vueRock.$set('totalItems', data);
-                });
-              }
+                }
+              });
             }
           }
         });

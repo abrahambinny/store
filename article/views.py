@@ -40,19 +40,17 @@ def detail(request, article_id):
     category = get_category()
     next_article = get_next_article()
 
-    article = ContentDetail.objects.filter(id=article_id)
-    if article:
-        article = article[0]
-    context = {"article":article, 'next_article':next_article, "category":category}
+    #article = ContentDetail.objects.filter(id=article_id)
+    #if article:
+    #    article = article[0]
+    context = {'next_article':next_article, "category":category, 'article_id':article_id}
     return render(request, 'article/detail.html', context)
 
 #ajax call response function to fetch the article detail to load the detail component using vue.js
-def detail_json(request, article_id): 
+def detail_json(request, article_id):
     article = ContentDetail.objects.filter(id=article_id)
-    if article:
-        article = article[0]
     data = serializers.serialize('json', article) 
-    return HttpResponse(data, mimetype='application/json')
+    return HttpResponse(data, content_type="application/json")
 
 #This function get the categories from db to display in sidebar
 def get_category():
