@@ -17,7 +17,8 @@ from django.http import HttpResponse
 from .models import ContentDetail, Category
 from datetime import datetime, date
 import simplejson 
-from django.core import serializers 
+from django.core import serializers
+from django.conf import settings
 
 #index function serves data to index page
 def index(request):
@@ -48,9 +49,21 @@ def detail(request, article_id):
 
 #ajax call response function to fetch the article detail to load the detail component using vue.js
 def detail_json(request, article_id):
+    data = []
     article = ContentDetail.objects.filter(id=article_id)
-    data = serializers.serialize('json', article) 
+    article_lst = []
+    if(article):
+        article = article[0]
+        article_lst.append(article)
+        article_lst.append(article.image)
+        article_lst.append(article.author)
+        article_lst.append(article.category)
+        
+        data = serializers.serialize('json', article_lst) 
     return HttpResponse(data, content_type="application/json")
+
+def fetch_img_url(img_path):
+    return img_path.split(settings.STATIC_URL)[1]
 
 #This function get the categories from db to display in sidebar
 def get_category():

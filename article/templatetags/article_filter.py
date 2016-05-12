@@ -16,13 +16,12 @@ Description : This file creates customised filters for django templates
 
 from django import template
 register = template.Library()
-
-from store.settings import STATIC_URL
+from django.conf import settings
 
 @register.filter
 def fetch_img_url(img_path):
     if(img_path):
-        return img_path.split(STATIC_URL)[1]
+        return img_path.split(settings.STATIC_URL)[1]
     else:
         return img_path
     

@@ -23,17 +23,17 @@
       
         <!-- Post -->
         {% verbatim %}
-        <article id="vue_view" class="post">
+        <article id="my_view" class="post">
           <header>
             <div class="title">
               <h2>{{article.title}}</h2>
-              <p>{{category}}</p>
+              <p>{{category.category_name}}</p>
             </div>
             <div class="meta">
-              <time class="published" datetime="{{pub_date}}">{{pub_date}}</time>
+              <time class="published" datetime="{{article.pub_date}}">{{article.pub_date}}</time>
             </div>
           </header>
-          <p>{{description}}</p>
+          <p>{{article.description}}</p>
         </article>
         {% endverbatim %}
         {% endblock %}
@@ -61,34 +61,35 @@
       <script type="text/javascript">
 
         var vueRock = new Vue({
-          el: '#vue_view',
-          data: {
-            article:[],
-          },
 
-          ready: function() {
-            this.fetchData();
-          },
+         el: '#my_view',
 
-          methods: {
-            fetchData: function(){
-              $.ajax({
-                url: '/detail/json/{{article_id}}/',
-                type: 'get',
-                dataType: 'json',
-                async: false,
-                success: function(data) {
-                  //var self = this;
-                  // This way
-                  self.article = data;
-                  //console.log(self.article);
-                  // Or this way
-                  //vueRock.$set('totalItems', data);
-                }
-              });
-            }
-          }
-        });
+         data: {
+           article: '',
+           image: '',
+           author: '',
+           category: '',
+         },
+
+         ready: function() {
+           this.fetchArticle();
+         },
+
+         methods: {
+           fetchArticle: function () {
+             $.get('/detail/json/{{article_id}}/', function (article_data) {
+               //this.foobar = foobar_fetched;
+               vueRock.$set('article', article_data[0].fields);
+               vueRock.$set('image', article_data[1].fields);
+               vueRock.$set('author', article_data[2].fields);
+               vueRock.$set('category', article_data[3].fields);
+
+             });
+             //this.foobar = {'title':'Our Blog', 'category':'Our Honeymoon'};
+           }
+         }
+       });
+
       </script>
     {% endblock %}
   </body>
