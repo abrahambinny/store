@@ -86,8 +86,28 @@
 			$search_input
 				.on('keydown', function(event) {
 
-					if (event.keyCode == 27)
-						$search_input.blur();
+                                     if (event.keyCode == 13){
+                                          event.preventDefault() ;
+
+					    $.get(
+						$search.attr('action'),
+						$search.serialize(),
+						function(data) {
+						    //$searchResult.html(data['status']);
+                                                    var $new_html = '<li>'+
+                                                                            '<a style="color:blue !important;" href="#">About Us'+
+                                                                             '</a>'+
+                                                                    '</li>';
+                                                    //var $new_html = '<li>Binny</li>';
+                                                    $('.sub-nav').html($new_html);
+                                                    //$('.sub-nav').toggleClass('visible');
+                                                    $('.sub-nav').removeClass('sub-nav').addClass('visible');
+						}
+					    );
+                                     }
+
+				     if (event.keyCode == 27)
+				         $search_input.blur();
 
 				})
 				.on('blur', function() {
