@@ -23,7 +23,8 @@
       
         <!-- Post -->
         {% verbatim %}
-        <article id="my_view" class="post">
+
+        <article id="article_view" class="post">
           <header>
             <div class="title">
               <h2>{{article.title}}</h2>
@@ -31,10 +32,13 @@
             </div>
             <div class="meta">
               <time class="published" datetime="{{article.pub_date}}">{{article.pub_date}}</time>
+              <a href="#" class="author"><span class="name">{{author.author_name}}</span><img v-bind:src="author.author_avatar" alt="{{author.author_name}}" /></a>
             </div>
           </header>
+          <img class="image featured" v-bind:src="image.main_img" alt="{{image.name}}" />
           <p>{{article.description}}</p>
         </article>
+
         {% endverbatim %}
         {% endblock %}
 
@@ -60,9 +64,9 @@
     {% block custom_js %}
       <script type="text/javascript">
 
-        var vueRock = new Vue({
+        var vueArticle = new Vue({
 
-         el: '#my_view',
+         el: '#article_view',
 
          data: {
            article: '',
@@ -78,14 +82,14 @@
          methods: {
            fetchArticle: function () {
              $.get('/detail/json/{{article_id}}/', function (article_data) {
-               //this.foobar = foobar_fetched;
-               vueRock.$set('article', article_data[0].fields);
-               vueRock.$set('image', article_data[1].fields);
-               vueRock.$set('author', article_data[2].fields);
-               vueRock.$set('category', article_data[3].fields);
+               //this.article = article_data;
+               vueArticle.$set('article', article_data[0].fields);
+               vueArticle.$set('image', article_data[1].fields);
+               vueArticle.$set('author', article_data[2].fields);
+               vueArticle.$set('category', article_data[3].fields);
 
              });
-             //this.foobar = {'title':'Our Blog', 'category':'Our Honeymoon'};
+             //this.article = {'title':'Our Blog', 'category':'Our Honeymoon'};
            }
          }
        });

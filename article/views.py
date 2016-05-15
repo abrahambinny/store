@@ -55,7 +55,9 @@ def detail_json(request, article_id):
     if(article):
         article = article[0]
         article_lst.append(article)
+        article.image.main_img.name = fetch_img_url(article.image.main_img.name)
         article_lst.append(article.image)
+        article.author.author_avatar.name = fetch_img_url(article.author.author_avatar.name)
         article_lst.append(article.author)
         article_lst.append(article.category)
         
@@ -63,7 +65,7 @@ def detail_json(request, article_id):
     return HttpResponse(data, content_type="application/json")
 
 def fetch_img_url(img_path):
-    return img_path.split(settings.STATIC_URL)[1]
+    return settings.STATIC_URL+img_path.split(settings.STATIC_URL)[1]
 
 #This function get the categories from db to display in sidebar
 def get_category():
