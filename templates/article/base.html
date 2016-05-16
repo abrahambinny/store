@@ -39,13 +39,22 @@
       float:right;
      }
 
-    #search-nav ul.sub-nav {
+    #search-nav div.sub-nav {
       display: none !important;
     }
 
-    #search-nav ul.visible {
+    #search-nav div.sub-visible {
+      background: #ffffff none repeat scroll 0 0;
+      border: 1px solid rgba(160, 160, 160, 0.3);
+      opacity: 1;
+      padding: 0 0.5em 0 0.5em;
+      text-align:left;
       display: block !important;
-    }  
+    }
+
+    #search-nav div.sub-visible > a{
+      cursor:pointer !important;
+    }
 
     </style>
     {% endblock %}
@@ -70,8 +79,8 @@
               <a class="fa-search" href="#search">Search</a>
               <form id="search" method="get" action="/search/">
                 <input type="text" name="query" placeholder="Search" />
+                <div class='sub-nav'></div>
               </form>
-              <ul class="sub-nav"></ul>
             </li>
             <li class="menu">
               <a class="fa-bars" href="#menu">Menu</a>

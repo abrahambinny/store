@@ -78,6 +78,9 @@
 
 							// Focus input.
 								$search_input.focus();
+ 
+                                                        // Reset Search div
+                                                                $('.sub-visible').removeClass('sub-visible').addClass('sub-nav');
 
 						}
 
@@ -88,20 +91,21 @@
 
                                      if (event.keyCode == 13){
                                           event.preventDefault() ;
-
+                                          $('.sub-visible').removeClass('sub-visible').addClass('sub-nav');
 					    $.get(
 						$search.attr('action'),
 						$search.serialize(),
 						function(data) {
 						    //$searchResult.html(data['status']);
-                                                    var $new_html = '<li>'+
-                                                                            '<a style="color:blue !important;" href="#">About Us'+
-                                                                             '</a>'+
-                                                                    '</li>';
-                                                    //var $new_html = '<li>Binny</li>';
-                                                    $('.sub-nav').html($new_html);
-                                                    //$('.sub-nav').toggleClass('visible');
-                                                    $('.sub-nav').removeClass('sub-nav').addClass('visible');
+                                                    var $search_html = '';
+                                                    $.each( data, function( key, value ) {
+                                                      var length = 25;
+                                                      var trimmedString = value['title'].length > length ? value['title'].substring(0, length - 3) + '...' : value['title'];
+                                                      $search_html += '<a title="'+value['title']+'" href="/detail/'+value['id']+'">'+trimmedString+'</a><br />';
+                                                    });
+
+                                                    $('.sub-nav').html($search_html);
+                                                    $('.sub-nav').removeClass('sub-nav').addClass('sub-visible');
 						}
 					    );
                                      }

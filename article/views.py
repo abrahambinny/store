@@ -64,12 +64,14 @@ def detail_json(request, article_id):
         data = serializers.serialize('json', article_lst) 
     return HttpResponse(data, content_type="application/json")
 
+#search functionality which matching article title
 def search_json(request):
     data = []
     if request.GET:
         search_term = request.GET['query']
-        articles = ContentDetail.objects.values('id','title').filter(title__icontains=search_term)
-        data = simplejson.dumps(list(articles))
+        if search_term != '':
+            articles = ContentDetail.objects.values('id','title').filter(title__icontains=search_term)
+            data = simplejson.dumps(list(articles))
     return HttpResponse(data, content_type="application/json")
 
 def fetch_img_url(img_path):
