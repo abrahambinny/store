@@ -13,11 +13,11 @@ CSS
 ------------------------------------------------------------------------
 DBNAME  = 'db_articles'
 USERNAME = 'root'
-PASSWORD = 'nonu@123'
+PASSWORD = 'binny@123'
 
 #DATA MIGRATION
 -------------------------------------------------------------------------
-mysql -u root -pnonu@123 db_articles<article_data.sql 
+mysql -u root -pbinny@123 db_articles<article_data.sql 
 
 #RUNSERVER
 -------------------------------------------------------------------------
