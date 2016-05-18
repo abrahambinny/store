@@ -35,7 +35,7 @@
               <a href="#" class="author"><span class="name">{{author.author_name}}</span><img v-bind:src="author.author_avatar" alt="{{author.author_name}}" /></a>
             </div>
           </header>
-          <img class="image featured" v-bind:src="image.main_img" alt="{{image.name}}" />
+          <img class="image featured" v-bind:src="image.main_img" alt="{{image.img_desc}}" />
           <p>{{article.description}}</p>
         </article>
 
@@ -81,12 +81,12 @@
 
          methods: {
            fetchArticle: function () {
-             $.get('/detail/json/{{article_id}}/', function (article_data) {
+             $.get('/api/detail/{{article_id}}/?format=json', function (article_data) {
                //this.article = article_data;
-               vueArticle.$set('article', article_data[0].fields);
-               vueArticle.$set('image', article_data[1].fields);
-               vueArticle.$set('author', article_data[2].fields);
-               vueArticle.$set('category', article_data[3].fields);
+               vueArticle.$set('article', article_data);
+               vueArticle.$set('image', article_data.image);
+               vueArticle.$set('author', article_data.author);
+               vueArticle.$set('category', article_data.category);
 
              });
              //this.article = {'title':'Our Blog', 'category':'Our Honeymoon'};
