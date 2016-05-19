@@ -1,3 +1,16 @@
+"""
+
+Title       : Article Django Rest Framework serializers
+
+Author      : Binny Abraham
+
+Status      : Active
+
+Created     : 18-05-2016
+
+Description : This file is used to serialize the data to rest framework api
+
+"""
 
 from rest_framework import serializers
 from .models import ContentDetail, Author, ImageStore, Category
