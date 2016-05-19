@@ -20,28 +20,22 @@
       <!-- Main -->
       <div id="main">
         {% block content %}
-      
         <!-- Post -->
-        {% verbatim %}
-
         <article id="article_view" class="post">
           <header>
             <div class="title">
-              <h2>{{article.title}}</h2>
-              <p>{{category.category_name}}</p>
+              <h2>[[article.title]]</h2>
+              <p>[[category.category_name]]</p>
             </div>
             <div class="meta">
-              <time class="published" datetime="{{article.pub_date}}">{{article.pub_date}}</time>
-              <a href="#" class="author"><span class="name">{{author.author_name}}</span><img v-bind:src="author.author_avatar" alt="{{author.author_name}}" /></a>
+              <time class="published" datetime="[[article.pub_date]]">[[article.pub_date]]</time>
+              <a href="#" class="author"><span class="name">[[author.author_name]]</span><img v-bind:src="author.author_avatar" alt="[[author.author_name]]" /></a>
             </div>
           </header>
-          <img class="image featured" v-bind:src="image.main_img" alt="{{image.img_desc}}" />
-          <p>{{article.description}}</p>
+          <img class="image featured" v-bind:src="image.main_img" alt="[[image.img_desc]]" />
+          <p>[[article.description]]</p>
         </article>
-
-        {% endverbatim %}
         {% endblock %}
-
         <!-- block next_content -->
       </div>
 
@@ -63,7 +57,8 @@
 
     {% block custom_js %}
       <script type="text/javascript">
-
+        
+        Vue.config.delimiters = ["[[", "]]"];
         var vueArticle = new Vue({
 
          el: '#article_view',
